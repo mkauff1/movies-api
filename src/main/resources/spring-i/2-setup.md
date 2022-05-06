@@ -4,7 +4,9 @@ Throughout the course of this module, we will be building a backend for the prev
 
 By the end of the module, you will have successfully created a full-stack, decoupled application!
 
-Let's dive in!
+## *If you received a pre-built Spring Boot project, you may skip this step and go to [On Frameworks](2b-on-frameworks.md)*
+
+### Let's dive in!
 
 ---
 ## 🚨 IntelliJ Setup

@@ -12,7 +12,11 @@ public class Movie {
     private String plot;
 
     public Movie(){
+    }
 
+    public Movie(int id, String title) {
+        this.id = id;
+        this.title = title;
     }
 
     public Movie(int id, String title, String year, String director, String actors, String imdbId, String movieser, String genre, String plot) {
@@ -97,5 +101,20 @@ public class Movie {
 
     public void setPlot(String plot) {
         this.plot = plot;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", director='" + director + '\'' +
+                ", actors='" + actors + '\'' +
+                ", imdbId='" + imdbId + '\'' +
+                ", movieser='" + movieser + '\'' +
+                ", genre='" + genre + '\'' +
+                ", plot='" + plot + '\'' +
+                '}';
     }
 }

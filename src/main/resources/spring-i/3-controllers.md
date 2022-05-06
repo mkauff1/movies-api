@@ -22,8 +22,8 @@ By implementing servlets manually, we have a greater appreciation for what a rob
 The first step in building our application will be to define a *controller* and
 define what routes the controller responds to. Luckily, Spring gives us a very easy way to do this. 
 
-🚨 Create a Java class in the `web` package called `HelloController`. The following code defines a controller that responds to
-requests for `/hello`:
+🚨 1. Inside `src/main/java/com/codeup/fortran_movies_api/`, create a package named `web`.
+2. Inside `web`, create a class named `HelloController`. The following code defines a controller and a `hello()` method which listens to requests on`/hello`:
 
 ```java
 @Controller
@@ -39,16 +39,19 @@ public class HelloController {
 
 Notice the fairly heavy use of annotations. Spring can be configured in a number
 of ways, and one of the easiest and most modern ways to do this is with
-annotations. We will be using annotations fairly extensively to configure our
+annotations. 
+
+We will be using annotations fairly extensively to configure our
 application, as opposed to the more traditional (and verbose) approach of
 XML-based configuration.
 
 Lets take a look at the annotations above in more detail.
 
-- `@Controller`: defines that our class is a controller
-- `@GetMapping`: defines a method that should be invoked when a GET request is
-  received for the specified URI
-- `@ResponseBody`: tells Spring that whatever is returned from this method should be the body of our response
+!!! 🧠
+  - `@Controller`: defines that our class is a controller. Controllers are special classes which Spring knows can listen for requests.
+  - `@GetMapping`: defines a method that should be invoked when a GET request is
+    received for the specified URI
+  - `@ResponseBody`: tells Spring that whatever is returned from this method should be the body of our response
 
 ---
 ### `@PathVariable`
@@ -98,6 +101,12 @@ Making a request to `/increment/10` would result in `addOne()` returning:
 ```JAVA
   "10 plus one is 11!"
 ```
+
+!!! 🧠 `@PathVariable`
+  - `@PathVariable` placed before a controller method's parameter indicates that 
+  a piece of the path can be used as an argument for that method. 
+  - The name of the parameter *must* match the interpolated (`{}`) path variable 
+    - `@PathVariable int number` --> `"/increment/{number}"` where `number` is the variable and parameter
 
 ---
 ## Further Reading

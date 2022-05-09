@@ -8,32 +8,66 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/api/movies", headers = "Accept=application/json")
+@RequestMapping(value = "/api/movies")
 public class MoviesController {
+
+    // Let's set up a temporary backing field to give us a list of movies to work with.
+    // We'll remove this once we integrate with the database
+    private List<Movie> sampleMovies = setMovies();
 
     @GetMapping
     public Movie one(){
-        return new Movie(1, "The Big Lebowski",
-                "1995", "Cohen Brothers",
-                "Jeff Bridges, John Goodman, Steve Buscemi",
-                "idk", "comedy", "comedy",
-                "Wanted to go bowling");
+//        return new Movie(1, "The Big Lebowski",
+//                "1995", "Cohen Brothers",
+//                "Jeff Bridges, John Goodman, Steve Buscemi",
+//                "idk", "comedy", "comedy",
+//                "Wanted to go bowling");
+        return sampleMovies.get(1);
     }
 
-//    @GetMapping
-//    private List<> getAll(@PathVariable ArrayList movies) {
-//        ArrayList<> movies = new ArrayList<>();
+    @GetMapping("all") // Path becomes: /api/movies/all
+    public List<Movie> getAll() {
+        return sampleMovies;
+//        List<movies> = new ArrayList<>();
 //
 //        movies spaceBalls = new Movie(1, "SpaceBalls");
 //        movies returnJedi = new Movie(2, "Return of the Jedi");
 //        movies revengeSith = new Movie(3, "Revenge of the Sith");
 //
 //        return movies;
-//    }
-//
-//    @GetMapping("id")
-//    public movies getById(@PathVariable Long id){
-//
-//    }
+    }
+
+    @GetMapping("id") //Define the path variable to use here
+    public Movie getById(@PathVariable int id){ // Actually use the path variable here by annotating a parameter with @Pathvariable
+          System.out.println(id);
+            return sampleMovies.stream().filter((movie) -> {
+                return movie.getId() == id;
+            })
+            .findFirst()
+            .orElse(null);
+    }
+
+    // This utility method simply sets up and populates our sampleMovies backing field
+    // Will remove once we integrate with the database
+    private List<Movie> setMovies() {
+        List<Movie> movies = new ArrayList<>();
+
+        movies.add(new Movie(2, "Pulp Fiction", "1994", "Quentin Tarantino",
+                "Samuel L. Jackson, Uma Therman, Bruce Willis, John Travolta, Ving Rhames",
+                "10", "action, drama, suspense, cult classic, crime",
+                "Vincent Vega (John Travolta) and Jules Winnfield (Samuel L. Jackson) are hitmen with a penchant for philosophical discussions. " +
+                        "In this ultra-hip, multi-strand crime movie, their storyline is interwoven with those of their boss, " +
+                        "gangster Marsellus Wallace (Ving Rhames) ; his actress wife, Mia (Uma Thurman) ; " +
+                        "struggling boxer Butch Coolidge (Bruce Willis) ; master fixer Winston Wolfe (Harvey Keitel) and a nervous pair of armed robbers" +
+                        "Hello", "Goodbye");
+                );
+        movies.add(new Movie(1, "The Big Lebowski",
+                "1995", "The Cohen Bros",
+                "Jeff Bridges, John Goodman, Steve Buscemi",
+                "idk bro", "comedy, drama?",
+                "the dude just wanted to relax and go bowling", "Goodbye"));
+
+        return movies;
+    }
 }
 

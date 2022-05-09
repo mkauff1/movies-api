@@ -17,24 +17,12 @@ public class MoviesController {
 
     @GetMapping
     public Movie one(){
-//        return new Movie(1, "The Big Lebowski",
-//                "1995", "Cohen Brothers",
-//                "Jeff Bridges, John Goodman, Steve Buscemi",
-//                "idk", "comedy", "comedy",
-//                "Wanted to go bowling");
         return sampleMovies.get(1);
     }
 
     @GetMapping("all") // Path becomes: /api/movies/all
     public List<Movie> getAll() {
         return sampleMovies;
-//        List<movies> = new ArrayList<>();
-//
-//        movies spaceBalls = new Movie(1, "SpaceBalls");
-//        movies returnJedi = new Movie(2, "Return of the Jedi");
-//        movies revengeSith = new Movie(3, "Revenge of the Sith");
-//
-//        return movies;
     }
 
     @GetMapping("id") //Define the path variable to use here
@@ -46,6 +34,15 @@ public class MoviesController {
             .findFirst()
             .orElse(null);
     }
+
+    @PostMapping
+    public void create(@RequestBody Movie movie){
+        System.out.println(movie);
+        // add to our movies list (fake db)
+        sampleMovies.add(movie);
+    }
+
+    @PostMapping("all") // Its okay to have
 
     // This utility method simply sets up and populates our sampleMovies backing field
     // Will remove once we integrate with the database
@@ -59,8 +56,7 @@ public class MoviesController {
                         "In this ultra-hip, multi-strand crime movie, their storyline is interwoven with those of their boss, " +
                         "gangster Marsellus Wallace (Ving Rhames) ; his actress wife, Mia (Uma Thurman) ; " +
                         "struggling boxer Butch Coolidge (Bruce Willis) ; master fixer Winston Wolfe (Harvey Keitel) and a nervous pair of armed robbers" +
-                        "Hello", "Goodbye");
-                );
+                        "Hello", "Goodbye"));
         movies.add(new Movie(1, "The Big Lebowski",
                 "1995", "The Cohen Bros",
                 "Jeff Bridges, John Goodman, Steve Buscemi",

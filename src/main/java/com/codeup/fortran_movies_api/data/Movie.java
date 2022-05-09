@@ -102,7 +102,6 @@ public class Movie {
                 ", director='" + director + '\'' +
                 ", actors='" + actors + '\'' +
                 ", imdbId='" + imdbId + '\'' +
-                ", movieser='" + movieser + '\'' +
                 ", genre='" + genre + '\'' +
                 ", plot='" + plot + '\'' +
                 '}';

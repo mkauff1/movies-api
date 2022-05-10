@@ -35,6 +35,16 @@ public class MoviesController {
             .orElse(null);
     }
 
+    @GetMapping("title")
+    public Movie getByTitle(@PathVariable String title){
+        Movie movieToReturn =  null;
+        for (Movie movie : sampleMovies){
+            if (movie.getTitle().equals(title)){
+                movieToReturn = movie;
+            }
+        }
+        return movieToReturn;
+    }
     @PostMapping
     public void create(@RequestBody Movie movie){
         System.out.println(movie);
@@ -42,8 +52,10 @@ public class MoviesController {
         sampleMovies.add(movie);
     }
 
-    @PostMapping("all") // Its okay to have
-
+    @PostMapping("many") // api/movies/many POST
+    public void createMany(@RequestBody List<Movie> movies){ //@RequestBody is very important to knowing how the Requests body maps
+        sampleMovies.addAll(movies); // addAll (On the collection object) allows us to add all
+    }
     // This utility method simply sets up and populates our sampleMovies backing field
     // Will remove once we integrate with the database
     private List<Movie> setMovies() {

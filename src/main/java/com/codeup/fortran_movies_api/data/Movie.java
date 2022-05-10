@@ -1,7 +1,12 @@
 package com.codeup.fortran_movies_api.data;
 
+import javax.persistence.*;
+
+@Entity
 public class Movie {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String title;
     private String year;
     private String director;

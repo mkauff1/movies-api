@@ -3,13 +3,21 @@ package com.codeup.fortran_movies_api.data;
 import javax.persistence.*;
 
 @Entity
+@Table(name="movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String year;
+
+    @Column(nullable = false)
     private String director;
+
     private String actors;
     private String imdbId;
     private String genre;
@@ -34,11 +42,11 @@ public class Movie {
         this.plot = plot;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

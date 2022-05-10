@@ -1,7 +1,9 @@
 package com.codeup.fortran_movies_api.web;
 
 import com.codeup.fortran_movies_api.data.Movie;
+import com.codeup.fortran_movies_api.data.MovieRepository;
 import org.springframework.web.bind.annotation.*;
+//import com.codeup.restblog.data.PostRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,12 @@ public class MoviesController {
     // We'll remove this once we integrate with the database
     private List<Movie> sampleMovies = setMovies();
 
+    private final MovieRepository movieRepository;
+
+    public MoviesController(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
+
     @GetMapping
     public Movie one(){
         return sampleMovies.get(1);
@@ -22,7 +30,8 @@ public class MoviesController {
 
     @GetMapping("all") // Path becomes: /api/movies/all
     public List<Movie> getAll() {
-        return sampleMovies;
+        //return sampleMovies;
+        return movieRepository.findAll();
     }
 
     @GetMapping("id") //Define the path variable to use here
@@ -49,7 +58,7 @@ public class MoviesController {
     public void create(@RequestBody Movie movie){
         System.out.println(movie);
         // add to our movies list (fake db)
-        sampleMovies.add(movie);
+        movieRepository.save(movie);
     }
 
     @PostMapping("many") // api/movies/many POST

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface MovieRepository extends JpaRepository<Movie, Long> {
+public interface MoviesRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByTitle(String title);
 
     @Query(nativeQuery = true,

@@ -9,10 +9,10 @@ Using DI (dependency injection) can be done as simply as follows:
 ```java
 public class MoviesController {
     // ...
-    private final MovieRepository movieRepository;
+    private final MovieRepository moviesRepository;
     
-    public MovieController(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    public MovieController(MovieRepository moviesRepository) {
+        this.moviesRepository = moviesRepository;
     }
     // ...
 }
@@ -31,10 +31,10 @@ public class MoviesController {
     // These two next steps are often called dependency injection, 
     // where we create a Repository instance and 
     // initialize it in the controller class constructor.
-    private final MovieRepository movieRepository;
+    private final MovieRepository moviesRepository;
 
-    public MovieController(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    public MovieController(MovieRepository moviesRepository) {
+        this.moviesRepository = moviesRepository;
     }
 
     @GetMapping
@@ -48,7 +48,7 @@ public class MoviesController {
         // Instead, we get this lovely snippet 
         // and can use MovieRepository over and 
         // again in this class.
-        return movieRepository.findAll();
+        return moviesRepository.findAll();
     }
 
     // ...

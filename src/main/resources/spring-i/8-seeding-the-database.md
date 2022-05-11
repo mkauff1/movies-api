@@ -10,7 +10,7 @@ To do this we have to follow a few fairly straight-forward steps.
 
 1. Test to ensure Spring can deserialize the JSON string to a list of Movie objects.
 
-1. Invoke `movieRepository.saveAll()`, passing in the movies list as the argument to `saveAll()`.
+1. Invoke `moviesRepository.saveAll()`, passing in the movies list as the argument to `saveAll()`.
 
 1. Test to ensure you can insert a couple of movies in a list.
 

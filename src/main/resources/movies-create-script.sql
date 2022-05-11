@@ -77,3 +77,16 @@ CREATE TABLE IF NOT EXISTS movie_actor(
 );
 
 DESCRIBE movie_actor;
+
+SELECT  * FROM movies m
+WHERE CAST(m.year AS UNSIGNED) >= 1977 AND CAST(m.year AS UNSIGNED) <= 1980;
+
+INSERT INTO genres (name)
+VALUES ('comdey'),
+       ('drama'),
+       ('action'),
+       ('fantasy'),
+       ('horror'),
+       ('romance'),
+       ('hallmark romance'),
+       ('thriller');

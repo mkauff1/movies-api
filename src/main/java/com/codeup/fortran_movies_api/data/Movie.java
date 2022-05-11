@@ -1,6 +1,7 @@
 package com.codeup.fortran_movies_api.data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="movies")
@@ -15,13 +16,16 @@ public class Movie {
     @Column(nullable = false)
     private String year;
 
-    //@Column(nullable = false)
-    //private String director;
+    @ManyToOne // Many movies have the same director
+    private Director director;
 
-//    private String actors;
-//    private String imdbId;
-//    private String genre;
+    private String actors;
+    private String imdbId;
     private String plot;
+    @ManyToMany
+    @JoinTable(name="movie_genre")
+    private String genre;
+
 
     public Movie(){
     }
@@ -35,10 +39,10 @@ public class Movie {
         this.id = id;
         this.title = title;
         this.year = year;
-        //this.director = director;
-//        this.actors = actors;
-//        this.imdbId = imdbId;
-//        this.genre = genre;
+        this.director = director;
+        this.actors = actors;
+        this.imdbId = imdbId;
+        this.genre = genre;
         this.plot = plot;
     }
 
@@ -66,37 +70,37 @@ public class Movie {
         this.year = year;
     }
 
-//    public String getDirector() {
-//        return director;
-//    }
-//
-//    public void setDirector(String director) {
-//        this.director = director;
-//    }
-//
-//    public String getActors() {
-//        return actors;
-//    }
-//
-//    public void setActors(String actors) {
-//        this.actors = actors;
-//    }
-//
-//    public String getImdbId() {
-//        return imdbId;
-//    }
-//
-//    public void setImdbId(String imdbId) {
-//        this.imdbId = imdbId;
-//    }
-//
-//    public String getGenre() {
-//        return genre;
-//    }
-//
-//    public void setGenre(String genre) {
-//        this.genre = genre;
-//    }
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public List<Genre> getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     public String getPlot() {
         return plot;

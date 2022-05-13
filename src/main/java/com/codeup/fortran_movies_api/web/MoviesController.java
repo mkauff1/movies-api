@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class MoviesController {
     }
 
     @GetMapping("all") // /api/movies/all
-    public List<Movie> getAll() {
+    public List<MovieDto> getAll() {
         //return moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
         List<Movie> movieEntities = moviesRepository.findAll();
         List<MovieDto> movieDtos = new ArrayList<>();

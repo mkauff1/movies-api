@@ -21,8 +21,6 @@ public class Movie {
     @JsonIgnoreProperties("directedMovies")
     private Director director;
 
-    private String actors;
-    private String imdbId;
     private String plot;
     @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("movies")
@@ -47,15 +45,6 @@ public class Movie {
         this.plot = plot;
         this.poster = poster;
         this.rating = rating;
-    }
-
-    public Movie(int id, String title, String year, String actors, String imdbId, String plot) {
-        this.id = id;
-        this.title = title;
-        this.year = year;
-        this.actors = actors;
-        this.imdbId = imdbId;
-        this.plot = plot;
     }
 
     public long getId() {
@@ -88,22 +77,6 @@ public class Movie {
 
     public void setDirector(Director director) {
         this.director = director;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
-
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
     }
 
     public List<Genre> getGenre() {
@@ -145,8 +118,6 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", year='" + year + '\'' +
                 ", director=" + director.getName() +
-                ", actors='" + actors + '\'' +
-                ", imdbId='" + imdbId + '\'' +
                 ", plot='" + plot + '\'' +
                 ", poster='" + poster + '\'' +
                 ", rating='" + rating + '\'' +

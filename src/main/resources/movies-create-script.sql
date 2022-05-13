@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS directors;
 CREATE TABLE IF NOT EXISTS directors
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(120) NOT NULL,
+    name VARCHAR(120),
     #INDEX movie_id (name),
     PRIMARY KEY (id)
 );
@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS movies
         ON DELETE CASCADE
 );
 # 6a. Run the script to make sure it works
-
+DESCRIBE movies;
+DESCRIBE directors;
 # 7. refactor to extract the directors to a new table with just an id and name
 # --> change the movies table to reference the directors table via Foreign Key
 # --> now that movies is dependent on directors, you need to move directors above movies in the script

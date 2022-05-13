@@ -10,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -31,7 +33,24 @@ public class MoviesController {
 
     @GetMapping("all") // /api/movies/all
     public List<Movie> getAll() {
-        return moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
+        //return moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
+        List<Movie> movieEntities = moviesRepository.findAll();
+        List<MovieDto> movieDtos = new ArrayList<>();
+        for (Movie movie: movieEntities) {
+            movieDtos.add(new MovieDto(movie.getId(),
+                    movie.getTitle(),
+                    movie.getRating(),
+                    movie.getPoster(),
+                    movie.getYear(),
+                    movie.getGenre()
+                        .stream()
+                        .map(Genre::getName)
+                        .collect(Collectors.joining(", ")),
+                    movie.getDirector().getName(),
+                    movie.getPlot()));
+        }
+        return movieDtos;
+
     }
 
     // /api/movies/3 <- 3 is the path variable for id

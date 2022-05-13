@@ -18,6 +18,7 @@ public class Genre {
             @JoinColumn(name = "genre_id", referencedColumnName = "id"),
             inverseJoinColumns =
             @JoinColumn(name = "movie_id", referencedColumnName = "id"))
+
     private List<Movie> movies;
 
     public Genre(int id, String name) {

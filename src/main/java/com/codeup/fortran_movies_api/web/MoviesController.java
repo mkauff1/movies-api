@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -38,15 +39,16 @@ public class MoviesController {
         for (Movie movie: movieEntities) {
             movieDtos.add(new MovieDto(movie.getId(),
                     movie.getTitle(),
-                    movie.getRating(),
-                    movie.getPoster(),
                     movie.getYear(),
+                    movie.getPlot(),
+                    movie.getPoster(),
+                    movie.getRating(),
+
                     movie.getGenre()
                         .stream()
                         .map(Genre::getName)
                         .collect(Collectors.joining(", ")),
-                    movie.getDirector().getName(),
-                    movie.getPlot()));
+                    movie.getDirector().getName()));
         }
         return movieDtos;
 
@@ -66,8 +68,6 @@ public class MoviesController {
 
     @GetMapping("search/year") // api/movies/search/year
     public List<Movie> getByYearRange(@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear){
-        // TODO: @RequestParam expects a query parameter in the request URL
-        //  to have a param matching what is in the annotation (ie: @RequestParam("startYear"))
         return moviesRepository.findByYearRange(startYear, endYear);
     }
 
@@ -78,15 +78,52 @@ public class MoviesController {
     }
 
     @GetMapping("search/genre")
-    public List<Genre> getByGenre(@RequestParam("name") String genreType){
-        List<Genre> genres = genresRepository.findByName(genreType);
+    public Genre getByGenre(@RequestParam("name") String genreType){
+        Genre genres = genresRepository.findGenreByName(genreType);
         return genres;
     }
 
-    @PostMapping // /api/movies POST
-    public void create(@RequestBody Movie movie){
-        // add to our movies list (fake db)
-        moviesRepository.save(movie);
+//    @PostMapping // /api/movies POST
+//    public void create(@RequestBody Movie movie){
+//        // add to our movies list (fake db)
+//        moviesRepository.save(movie);
+//    }
+
+    @PostMapping
+    public void create(@RequestBody MovieDto movieDto) {
+        Movie movieToAdd = new Movie(
+                movieDto.getId(),
+                movieDto.getTitle(),
+                movieDto.getYear(),
+                movieDto.getPlot(),
+                movieDto.getPoster(),
+                movieDto.getRating()
+//                movieDto.getGenre(),
+//                movieDto.getDirector()
+        );
+
+        List<Director> directorsInDb = directorsRepository.findByName(movieDto.getDirector());
+        if (directorsInDb.isEmpty()) {
+            Director newDirector = new Director(movieDto.getDirector());
+            movieToAdd.setDirector(directorsRepository.save(newDirector));
+        } else {
+            movieToAdd.setDirector(directorsInDb.get(0));
+        }
+
+        String[] genres = movieDto.getGenre().split(", ");
+        List<Genre> movieGenre = new ArrayList<>();
+        for (String genre : genres) {
+            Genre genreInDb = genresRepository.findGenreByName(genre);
+            System.out.println(genreInDb);
+            if (genreInDb == null) {
+                Genre newGenre = new Genre(genre);
+                movieGenre.add(genresRepository.save(newGenre));
+            } else {
+                movieGenre.add(genreInDb);
+            }
+        }
+        movieToAdd.setGenre(movieGenre);
+        moviesRepository.save(movieToAdd);
     }
 
     @PostMapping ("many")// /api/movies/many POST
@@ -108,7 +145,5 @@ public class MoviesController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No matching movie with ID: " + id);
         }
     }
-
-
 
 }

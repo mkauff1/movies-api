@@ -1,5 +1,7 @@
 package com.codeup.fortran_movies_api.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,9 +15,19 @@ public class Director {
     private String name;
 
     @OneToMany(mappedBy = "director")
+    @JsonIgnoreProperties("director")
     private List<Movie> directedMovies;
 
     public Director() {
+    }
+
+    public Director(String name){
+        this.name = name;
+    }
+
+    public Director(int id, String name){
+        this.id = id;
+        this.name = name;
     }
 
     public Director(int id, String name, List<Movie> directedMovies) {
@@ -53,7 +65,7 @@ public class Director {
         return "Director{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", directedMovies=" + directedMovies +
+//                ", directedMovies=" + directedMovies +
                 '}';
     }
 }

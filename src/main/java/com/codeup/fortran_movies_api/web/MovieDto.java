@@ -3,25 +3,25 @@ package com.codeup.fortran_movies_api.web;
 public class MovieDto {
     private Long id;
     private String title;
-    private String rating;
-    private String poster;
     private String year;
+    private String plot;
+    private String poster;
+    private String rating;
     private String genre;
     private String director;
-    private String plot;
 
     public MovieDto() {
     }
 
-    public MovieDto(Long id, String title, String rating, String poster, String year, String genre, String director, String plot) {
+    public MovieDto(Long id, String title, String year, String plot, String poster, String rating, String genre, String director) {
         this.id = id;
         this.title = title;
-        this.rating = rating;
-        this.poster = poster;
         this.year = year;
+        this.plot = plot;
+        this.poster = poster;
+        this.rating = rating;
         this.genre = genre;
         this.director = director;
-        this.plot = plot;
     }
 
     public Long getId() {

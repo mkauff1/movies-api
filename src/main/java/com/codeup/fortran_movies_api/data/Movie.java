@@ -17,18 +17,21 @@ public class Movie {
     @Column(nullable = false)
     private String year;
 
+    private String plot;
+    private String poster;
+    private String rating;
+
     @ManyToOne // Many movies have the same director
     @JsonIgnoreProperties("directedMovies")
     private Director director;
 
-    private String plot;
     @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("movies")
+    @JoinTable(name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+
     private List<Genre> genre;
-
-    private String poster;
-    private String rating;
-
 
     public Movie(){
     }
@@ -40,6 +43,14 @@ public class Movie {
 
     public Movie(long id, String title, String year, String plot, String poster, String rating) {
         this.id = id;
+        this.title = title;
+        this.year = year;
+        this.plot = plot;
+        this.poster = poster;
+        this.rating = rating;
+    }
+
+    public Movie(String title, String year, String plot, String poster, String rating) {
         this.title = title;
         this.year = year;
         this.plot = plot;
